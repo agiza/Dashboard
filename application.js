@@ -1,11 +1,13 @@
 // Settings - Change to your settings - Leave empty string to display nothing
 settings = {
-  title : "Fuel Collective Dashboard",
-	twitter : "fuelcollective",
-	facebook : "148895398516230",
+  title : "Fuel Collective Dashboard", // Displayed on homepage
+	twitter : "fuelcollective", // http://twitter.com/#!/[fuelcollective]
+	facebook : "148895398516230", // https://www.facebook.com/pages/Fuel-Collective/[148895398516230]
 	weather : "60304", // zip code
 	chartbeatDomain : "",
-	chartbeatKey : ""
+	chartbeatKey : "",
+	slowUpdateTime : 1800000, //update every 30 minutes - for twiiter, facebook, and weather
+	fastUpdateTime : 30000 //update every 30 seconds - for chartbeat
 };
 
 var slowAPIRequests = function(){
@@ -54,6 +56,6 @@ $(function() {
   $("h1").text(settings.title);
   slowAPIRequests();
   fastAPIRequests();
-  setInterval("makeAPIRequests()", 1800000); //update every 30 minutes
-  setInterval("fastUpdates()", 30000); //update every 30 seconds
+  setInterval("makeAPIRequests()", settings.slowUpdateTime); //update every 30 minutes
+  setInterval("fastUpdates()", settings.fastUpdateTime); //update every 30 seconds
 });
