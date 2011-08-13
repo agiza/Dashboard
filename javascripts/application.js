@@ -58,15 +58,20 @@ var slowAPIRequests = function(){
   }
 
   // Get Yahoo Weather API Data
-  if(settings.weather !== "") {
+  if(settings.weather.zipcode !== "") {
     $("#weather").show();
-    $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20location%3D"+settings.weather+"&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?", function(data) {
-      $("#weather span").text(data.query.results.channel.item.condition.temp+" degress outside and "+data.query.results.channel.item.condition.text);
-      if(data.query.results.channel.item.condition.temp > 85){
+    $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20location%3D"+settings.weather.zipcode+"&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?", function(data) {
+        var temperature = data.query.results.channel.item.condition.temp;
+        var high = data.query.results.channel.item.forecast[0].high;
+        var low = data.query.results.channel.item.forecast[0].low;
+        var foreText = data.query.results.channel.item.forecast[0].text;
+      $("#weather span#one").text(temperature+" degress outside and "+data.query.results.channel.item.condition.text);
+      $("#weather span#two").text("Todays High: "+high+" Todays Low: "+low+" "+foreText).hide();
+      if(temperature > 85){
         $("#weather").addClass("hot");
-      } else if(data.query.results.channel.item.condition.temp < 60) {
+      } else if(temperature < 60) {
         $("#weather").addClass("cold");
-      } else if(data.query.results.channel.item.condition.temp < 32) {
+      } else if(temperature < 32) {
         snowStorm.resume();
       } else {
         $("#weather").removeClass("hot, cold");
@@ -100,13 +105,24 @@ var fastAPIRequests = function(){
       var linodes = data.DATA
       $("#linode ul li").remove();
       for (var i=0; i < linodes.length; i++) {
-        $("#linode ul").append("<li>"+linodes[i].LABEL +" has a status of "+ linodes[i].STATUS+"</li>")
+        var label = linodes[i].LABEL;
+        var status = linodes[i].STATUS;
+        var humanStatus = (status === 1)? "Running" : "Shut Down";
+        $("#linode ul").append("<li>"+label +" is "+ humanStatus+"</li>");
       };
     });
   }
-  
 }
 
+var toggleWeather = function(){
+  if($("#weather span#one").is(":visible")){
+    $("#weather span#one").hide();
+    $("#weather span#two").show();
+  } else {                      
+    $("#weather span#one").show();
+    $("#weather span#two").hide();
+  }
+}
 
 $(function() {
   snowStorm.stop();
@@ -116,6 +132,9 @@ $(function() {
   fastAPIRequests();
   setInterval("slowAPIRequests()", settings.slowUpdateTime); //update every 30 minutes
   setInterval("fastAPIRequests()", settings.fastUpdateTime); //update every 30 seconds
+  if(settings.weather.showForecast){
+    setInterval("toggleWeather()", 5000);
+  }
   if(settings.time){
     $("#time").show();
     updateClock();

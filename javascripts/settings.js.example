@@ -3,7 +3,10 @@ settings = {
   title : "My Dashboard", // Displayed on homepage
 	twitter : "myusername", // http://twitter.com/#!/[XXXXX]
 	facebook : "12345678", // https://www.facebook.com/pages/XXXXX/[XXXXXXXX]
-	weather : "90210", // zip code
+	weather : {
+	  zipcode : "60304", // zip code
+	  showForecast : true // Will toggle current conditions with forecast every 5 seconds
+	},
 	chartbeatDomain : "",
 	chartbeatKey : "",
 	linodeKey : "", // Linode - Look in My Profile for API key
