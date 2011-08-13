@@ -1,9 +1,9 @@
 // Settings - Change to your settings - Leave empty string to display nothing
 settings = {
-  title : "Fuel Collective Dashboard", // Displayed on homepage
-	twitter : "fuelcollective", // http://twitter.com/#!/[XXXXX]
-	facebook : "148895398516230", // https://www.facebook.com/pages/XXXXX/[XXXXXXXX]
-	weather : "60304", // zip code
+  title : "My Dashboard", // Displayed on homepage
+	twitter : "myusername", // http://twitter.com/#!/[XXXXX]
+	facebook : "12345678", // https://www.facebook.com/pages/XXXXX/[XXXXXXXX]
+	weather : "90210", // zip code
 	chartbeatDomain : "",
 	chartbeatKey : "",
 	linodeKey : "", // Linode - Look in My Profile for API key
@@ -12,3 +12,5 @@ settings = {
 	showUpDown : true, // show up/down status of twitter, facebook, and chartbeat
 	time: true // show current time
 };
+// Do not remove this
+document.getElementById("setup").style.display = "none"
