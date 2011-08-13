@@ -1,8 +1,8 @@
 // Settings - Change to your settings - Leave empty string to display nothing
 settings = {
   title : "Fuel Collective Dashboard", // Displayed on homepage
-	twitter : "fuelcollective", // http://twitter.com/#!/[fuelcollective]
-	facebook : "148895398516230", // https://www.facebook.com/pages/Fuel-Collective/[148895398516230]
+	twitter : "fuelcollective", // http://twitter.com/#!/[XXXXX]
+	facebook : "148895398516230", // https://www.facebook.com/pages/XXXXX/[XXXXXXXX]
 	weather : "60304", // zip code
 	chartbeatDomain : "",
 	chartbeatKey : "",

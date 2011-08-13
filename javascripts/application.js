@@ -1,3 +1,8 @@
+// If you're looking to change settings, try the settings.js files. Otherwise you probably know
+// what you're doing so have fun!
+//
+// Copyright 2011 Stephen Korecky
+
 var updateClock = function() {
   var currentTime = new Date();
   var currentHours = currentTime.getHours();
