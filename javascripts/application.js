@@ -66,8 +66,11 @@ var slowAPIRequests = function(){
         $("#weather").addClass("hot");
       } else if(data.query.results.channel.item.condition.temp < 60) {
         $("#weather").addClass("cold");
+      } else if(data.query.results.channel.item.condition.temp < 32) {
+        snowStorm.resume();
       } else {
         $("#weather").removeClass("hot, cold");
+        snowStorm.stop();
       }
     });
   }
@@ -93,6 +96,7 @@ var fastAPIRequests = function(){
 
 
 $(function() {
+  snowStorm.stop();
   $("h1").text(settings.title);
   document.title = settings.title;
   slowAPIRequests();
