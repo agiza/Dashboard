@@ -89,6 +89,19 @@ var fastAPIRequests = function(){
       }
     });
   }
+  
+  // Get Linode API Data
+  if(settings.linodeKey !== "") {
+    $("#status li#linode").show();
+    $.getJSON("https://api.linode.com/?api_key="+settings.linodeKey+"&api_action=linode.list", function(data) {
+      var linodes = data.DATA
+      $("#linode ul li").remove();
+      for (var i=0; i < linodes.length; i++) {
+        $("#linode ul").append("<li>"+linodes[i].LABEL +" has a status of "+ linodes[i].STATUS+"</li>")
+      };
+    });
+  }
+  
 }
 
 

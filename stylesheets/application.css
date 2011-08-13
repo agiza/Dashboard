@@ -55,6 +55,25 @@ p#updated {
   text-shadow:0 -2px 0 rgba(0,0,0,0.5)
 }
 
+
+#status ul li ul li:first-child {
+  border:none;
+}
+
+#status ul li ul {
+  margin:0;
+}
+
+#status ul li ul li {
+  border-radius:0;
+  border-top:1px solid rgba(0,0,0,0.2);
+  -webkit-box-shadow: none;
+  display:block;
+  font-size:40px;
+  padding:10px;
+  margin:0;
+}
+
 #status h2 {
   font-size:80px;
   font-weight:200;
@@ -78,6 +97,11 @@ p#updated {
 #status li#chartbeat {
   background:#810300;
   border:2px solid #2F0000;
+}
+
+#status li#linode {
+  background:#308135;
+  border:2px solid #252F1B;
 }
 
 #time {

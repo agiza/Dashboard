@@ -6,6 +6,7 @@ settings = {
 	weather : "60304", // zip code
 	chartbeatDomain : "",
 	chartbeatKey : "",
+	linodeKey : "", // Linode - Look in My Profile for API key
 	slowUpdateTime : 1800000, //update every 30 minutes - for twiiter, facebook, and weather
 	fastUpdateTime : 30000, //update every 30 seconds - for chartbeat
 	showUpDown : true, // show up/down status of twitter, facebook, and chartbeat
