@@ -10,7 +10,7 @@ A few notes:
 - Twitter, Facebook, and Weather will refresh every 30 minutes by default. Chartbeat every 30 seconds.
 
 ## Setup
-Setup is super simple. Look inside 'application.js' to change your settings.
+Setup is super simple. Look inside 'javascripts/settings.js' to change your settings.
 
     settings = {
       title : "Fuel Collective Dashboard", // Displayed on homepage
@@ -20,7 +20,9 @@ Setup is super simple. Look inside 'application.js' to change your settings.
     	chartbeatDomain : "",
     	chartbeatKey : "",
     	slowUpdateTime : 1800000, //update every 30 minutes - for twiiter, facebook, and weather
-    	fastUpdateTime : 30000 //update every 30 seconds - for chartbeat
+    	fastUpdateTime : 30000, //update every 30 seconds - for chartbeat
+    	showUpDown : true, // show up/down status of twitter, facebook, and chartbeat
+    	time: true // show current time
     };
     
 anything left blank "", will simply not be displayed on the screen. More services will be added when I have time.
