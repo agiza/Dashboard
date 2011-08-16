@@ -32,7 +32,7 @@ var slowAPIRequests = function(){
     $.getJSON('http://twitter.com/users/'+settings.twitter+'.json?callback=?', function(data) {
       $("#status li#twitter span.count").text(data.followers_count);
       if(settings.showUpDown) {
-        if(data.followers_count >= currentCount) {
+        if(data.followers_count > currentCount) {
           $("#twitter .picto_ud").text("{"); //up 
         } else {
           $("#twitter .picto_ud").text("}"); //up 
@@ -48,7 +48,7 @@ var slowAPIRequests = function(){
     $.getJSON("https://graph.facebook.com/"+settings.facebook+"?callback=?", function(data) {
       $("#status li#facebook span.count").text(data.likes);
       if(settings.showUpDown) {
-        if(data.likes >= currentCount) {
+        if(data.likes > currentCount) {
           $("#facebook .picto_ud").text("{"); //up 
         } else {
           $("#facebook .picto_ud").text("}"); //up 
@@ -89,7 +89,7 @@ var fastAPIRequests = function(){
     $.getJSON("http://api.chartbeat.com/quickstats?host="+settings.chartbeatDomain+"&apikey="+settings.chartbeatKey+"&jsonp=?", function(data) {
       $("#status li#chartbeat span.count").text(data.people);
       if(settings.showUpDown) {
-        if(data.people >= currentCount) {
+        if(data.people > currentCount) {
           $("#chartbeat .picto_ud").text("{"); //up 
         } else {
           $("#chartbeat .picto_ud").text("}"); //up 
