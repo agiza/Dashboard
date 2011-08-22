@@ -1,14 +1,16 @@
 // Settings - Change to your settings - Leave empty string to display nothing
 settings = {
   title : "My Dashboard", // Displayed on homepage
-	twitter : "myusername", // http://twitter.com/#!/[XXXXX]
-	facebook : "12345678", // https://www.facebook.com/pages/XXXXX/[XXXXXXXX]
+	twitter : "", // http://twitter.com/#!/[XXXXX]
+	facebook : "", // https://www.facebook.com/pages/XXXXX/[XXXXXXXX]
 	weather : {
-	  zipcode : "60304", // zip code
+	  zipcode : "60610", // zip code
 	  showForecast : true // Will toggle current conditions with forecast every 5 seconds
 	},
-	chartbeatDomain : "",
-	chartbeatKey : "",
+	chartbeat : {
+	  domainName : "", // domain.com
+  	key : "" // XXXXXXXX
+	},
 	linodeKey : "", // Linode - Look in My Profile for API key
 	slowUpdateTime : 1800000, //update every 30 minutes - for twiiter, facebook, and weather
 	fastUpdateTime : 30000, //update every 30 seconds - for chartbeat

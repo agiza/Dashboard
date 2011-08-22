@@ -73,7 +73,7 @@ var slowAPIRequests = function(){
         $("#weather").addClass("cold");
       } else if(temperature < 32) {
         snowStorm.resume();
-      } else {
+      } else if((temperature < 85) || (temperature > 32)) {
         $("#weather").removeClass("hot, cold");
         snowStorm.stop();
       }
@@ -86,7 +86,7 @@ var fastAPIRequests = function(){
   if(settings.chartbeatKey !== "") {
     $("#status li#chartbeat").show();
     var currentCount = parseFloat($("#status li#chartbeat span.count").text());
-    $.getJSON("http://api.chartbeat.com/quickstats?host="+settings.chartbeatDomain+"&apikey="+settings.chartbeatKey+"&jsonp=?", function(data) {
+    $.getJSON("http://api.chartbeat.com/quickstats?host="+settings.chartbeat.domainName+"&apikey="+settings.chartbeat.key+"&jsonp=?", function(data) {
       $("#status li#chartbeat span.count").text(data.people);
       if(settings.showUpDown) {
         if(data.people > currentCount) {
@@ -115,13 +115,7 @@ var fastAPIRequests = function(){
 }
 
 var toggleWeather = function(){
-  if($("#weather span#one").is(":visible")){
-    $("#weather span#one").hide();
-    $("#weather span#two").show();
-  } else {                      
-    $("#weather span#one").show();
-    $("#weather span#two").hide();
-  }
+  $("#weather span#one, #weather span#two").toggle();
 }
 
 $(function() {
@@ -130,8 +124,8 @@ $(function() {
   document.title = settings.title;
   slowAPIRequests();
   fastAPIRequests();
-  setInterval("slowAPIRequests()", settings.slowUpdateTime); //update every 30 minutes
-  setInterval("fastAPIRequests()", settings.fastUpdateTime); //update every 30 seconds
+  setInterval("slowAPIRequests()", settings.slowUpdateTime);
+  setInterval("fastAPIRequests()", settings.fastUpdateTime);
   if(settings.weather.showForecast){
     setInterval("toggleWeather()", 5000);
   }
