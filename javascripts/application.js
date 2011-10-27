@@ -23,18 +23,6 @@ var updateClock = function() {
   $("#time").text(currentTimeString);
 }
 
-
-
-var slideImage = function(){
-  $("#wrapper #slider").animate({left: '-=1920'},500,function(){
-    $(this).children("div").first().appendTo("#slider");
-    $("#wrapper #slider").css({left: '0'});
-  });
-};
-$(function(){
-  setInterval(function(){slideImage()},10000);
-});
-
 var slowAPIRequests = function(){
   
   // Get Pivotal Tracker Data
