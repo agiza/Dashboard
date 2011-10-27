@@ -23,8 +23,38 @@ var updateClock = function() {
   $("#time").text(currentTimeString);
 }
 
-var slowAPIRequests = function(){
 
+
+var slideImage = function(){
+  $("#wrapper #slider").animate({left: '-=1920'},500,function(){
+    $(this).children("div").first().appendTo("#slider");
+    $("#wrapper #slider").css({left: '0'});
+  });
+};
+$(function(){
+  setInterval(function(){slideImage()},10000);
+});
+
+var slowAPIRequests = function(){
+  
+  // Get Pivotal Tracker Data
+  if(settings.twitter !== "") {
+    $("#pivotal").show();
+    $.ajax({
+      type: "GET",
+      url: 'http://xml2json.heroku.com',
+      data:'url=https://www.pivotaltracker.com/services/v3/projects/'+settings.pivotalTracker.project+'/iterations/current?token='+settings.pivotalTracker.apiToken,
+      dataType: 'jsonp',
+      success: function(data) {
+        var stories = data.iterations[0].stories;
+        console.log(stories);
+        $(stories).each(function(e, story){
+          $("#pivotal ul").append("<li class='"+story.current_state+"'>"+story.name +"</li>");
+        });
+      }
+    });
+  }
+  
   // Get Twitter API Data
   if(settings.twitter !== "") {
     $("#status li#twitter").show();
@@ -32,7 +62,7 @@ var slowAPIRequests = function(){
     $.getJSON('http://twitter.com/users/'+settings.twitter+'.json?callback=?', function(data) {
       $("#status li#twitter span.count").text(data.followers_count);
       if(settings.showUpDown) {
-        if(data.followers_count > currentCount) {
+        if(data.followers_count >= currentCount) {
           $("#twitter .picto_ud").text("{"); //up 
         } else {
           $("#twitter .picto_ud").text("}"); //up 
@@ -48,7 +78,7 @@ var slowAPIRequests = function(){
     $.getJSON("https://graph.facebook.com/"+settings.facebook+"?callback=?", function(data) {
       $("#status li#facebook span.count").text(data.likes);
       if(settings.showUpDown) {
-        if(data.likes > currentCount) {
+        if(data.likes >= currentCount) {
           $("#facebook .picto_ud").text("{"); //up 
         } else {
           $("#facebook .picto_ud").text("}"); //up 
@@ -101,21 +131,43 @@ var fastAPIRequests = function(){
   // Get Linode API Data
   if(settings.linodeKey !== "") {
     $("#status li#linode").show();
-    $.getJSON("https://api.linode.com/?api_key="+settings.linodeKey+"&api_action=linode.list", function(data) {
+    $.getJSON("https://api.linode.com/?api_key="+settings.linodeKey+"&api_action=linode.list&callback=?", function(data) {
       var linodes = data.DATA
       $("#linode ul li").remove();
-      for (var i=0; i < linodes.length; i++) {
-        var label = linodes[i].LABEL;
-        var status = linodes[i].STATUS;
-        var humanStatus = (status === 1)? "Running" : "Shut Down";
-        $("#linode ul").append("<li>"+label +" is "+ humanStatus+"</li>");
-      };
+      $(linodes).each(function(e, linode){
+        var humanStatus = (linode.STATUS === 1)? "Running" : "Shut Down";
+        $("#linode ul").append("<li>"+linode.LABEL +" is "+ humanStatus+"</li>");
+      });
     });
   }
+  
+  $.ajax({
+    url: "http://coupontrade.com/api/orders.json",
+    dataType: 'json',
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Authorization", "VU_yPMjWuMSLoafBuHp3:x");
+    },
+    headers: {
+      "Access-Control-Allow-Origin":"http://coupontrade.com/api/orders.json",
+      "Access-Control-Allow-Headers":"X-Requested-With"
+    },
+    success: function(data, textStatus, XMLHttpRequest) {
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    }
+  });
+  
+  
 }
 
 var toggleWeather = function(){
-  $("#weather span#one, #weather span#two").toggle();
+  if($("#weather span#one").is(":visible")){
+    $("#weather span#one").hide();
+    $("#weather span#two").show();
+  } else {
+    $("#weather span#one").show();
+    $("#weather span#two").hide();
+  }
 }
 
 $(function() {
