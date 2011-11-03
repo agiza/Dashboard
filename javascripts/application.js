@@ -25,24 +25,6 @@ var updateClock = function() {
 
 var slowAPIRequests = function(){
   
-  // Get Pivotal Tracker Data
-  if(settings.twitter !== "") {
-    $("#pivotal").show();
-    $.ajax({
-      type: "GET",
-      url: 'http://xml2json.heroku.com',
-      data:'url=https://www.pivotaltracker.com/services/v3/projects/'+settings.pivotalTracker.project+'/iterations/current?token='+settings.pivotalTracker.apiToken,
-      dataType: 'jsonp',
-      success: function(data) {
-        var stories = data.iterations[0].stories;
-        console.log(stories);
-        $(stories).each(function(e, story){
-          $("#pivotal ul").append("<li class='"+story.current_state+"'>"+story.name +"</li>");
-        });
-      }
-    });
-  }
-  
   // Get Twitter API Data
   if(settings.twitter !== "") {
     $("#status li#twitter").show();
@@ -100,6 +82,25 @@ var slowAPIRequests = function(){
 }
 
 var fastAPIRequests = function(){
+  
+  // Get Pivotal Tracker Data
+  if(settings.pivotalTracker.apiToken !== "") {
+    $("#pivotal").show();
+    $.ajax({
+      type: "GET",
+      url: 'http://xml2json.heroku.com',
+      data:'url=https://www.pivotaltracker.com/services/v3/projects/'+settings.pivotalTracker.project+'/iterations/current?token='+settings.pivotalTracker.apiToken,
+      dataType: 'jsonp',
+      success: function(data) {
+        $("#pivotal ul li").remove();
+        var stories = data.iterations[0].stories;
+        $(stories).each(function(e, story){
+          $("#pivotal ul").append("<li class='"+story.current_state+"'>"+story.name +"</li>");
+        });
+      }
+    });
+  }
+  
   // Get Chartbeat API Data
   if(settings.chartbeatKey !== "") {
     $("#status li#chartbeat").show();
@@ -129,21 +130,21 @@ var fastAPIRequests = function(){
     });
   }
   
-  $.ajax({
-    url: "http://coupontrade.com/api/orders.json",
-    dataType: 'json',
-    beforeSend: function(xhr) {
-      xhr.setRequestHeader("Authorization", "VU_yPMjWuMSLoafBuHp3:x");
-    },
-    headers: {
-      "Access-Control-Allow-Origin":"http://coupontrade.com/api/orders.json",
-      "Access-Control-Allow-Headers":"X-Requested-With"
-    },
-    success: function(data, textStatus, XMLHttpRequest) {
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
-    }
-  });
+  // $.ajax({
+  //   url: "http://coupontrade.com/api/orders.json",
+  //   dataType: 'json',
+  //   beforeSend: function(xhr) {
+  //     xhr.setRequestHeader("Authorization", "VU_yPMjWuMSLoafBuHp3:x");
+  //   },
+  //   headers: {
+  //     "Access-Control-Allow-Origin":"http://coupontrade.com/api/orders.json",
+  //     "Access-Control-Allow-Headers":"X-Requested-With"
+  //   },
+  //   success: function(data, textStatus, XMLHttpRequest) {
+  //   },
+  //   error: function(XMLHttpRequest, textStatus, errorThrown) {
+  //   }
+  // });
   
   
 }

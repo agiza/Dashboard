@@ -9,21 +9,6 @@ body {
   position:relative;
 }
 
-#wrapper #slider {
-  position:absolute;
-  width:3840px;
-}
-
-#status {
-  float:left;
-  width:1920px;
-}
-
-#pivotal {
-  float:left;
-  width:1920px;
-}
-
 #setup {
   background:#000;
   color:#FFF;
@@ -62,8 +47,8 @@ body {
 }
 
 h1 {
-  font-size:50px;
-  margin:50px 0 0;
+  font-size:40px;
+  margin:20px 0 0;
   text-align:center;
 }
 
@@ -74,7 +59,8 @@ p#updated {
 
 #status ul {
   list-style:none;
-  margin:50px 50px 0;
+  margin:20px 50px;
+  overflow:hidden;
   padding:0;
 }
 
@@ -82,11 +68,17 @@ p#updated {
   border-radius: 10px;
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.2);
   display:none;
-  margin:0 0 40px;
-  padding:20px;
-  text-shadow:0 -2px 0 rgba(0,0,0,0.5)
+  float:left;
+  margin:10px 23px 10px 0;
+  padding:10px;
+  text-align:center;
+  text-shadow:-1px -1px 0 rgba(0,0,0,0.5);
+  width:30%;
 }
 
+#status ul li:nth-child(3) {
+  margin:10px 0;
+}
 
 #status ul li ul li:first-child {
   border:none;
@@ -107,12 +99,14 @@ p#updated {
 }
 
 #status h2 {
-  font-size:80px;
+  font-size:30px;
   font-weight:200;
   margin:0;
 }
 
 #status h2 span {
+  font-size:80px;
+  display:block;
   font-weight:bold;
 }
 
@@ -267,6 +261,17 @@ p#updated {
   background: -ms-linear-gradient(top, #606060 0%,#494949 100%);
   background: linear-gradient(top, #606060 0%,#494949 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606060', endColorstr='#494949',GradientType=0 );
+}
+
+#pivotal ul li.rejected {
+  background: #b70306;
+  background: -moz-linear-gradient(top, #b70306 0%, #a50002 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b70306), color-stop(100%,#a50002));
+  background: -webkit-linear-gradient(top, #b70306 0%,#a50002 100%);
+  background: -o-linear-gradient(top, #b70306 0%,#a50002 100%);
+  background: -ms-linear-gradient(top, #b70306 0%,#a50002 100%);
+  background: linear-gradient(top, #b70306 0%,#a50002 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b70306', endColorstr='#a50002',GradientType=0 );
 }
 
 #pivotal ul li.unstarted {
